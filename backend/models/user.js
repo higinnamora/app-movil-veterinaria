@@ -82,6 +82,10 @@ User.create = async (user, result) => {
 };
 
 User.update = async (user, result) => {
+    if (!user.id) {
+        return result({ message: 'ID de usuario requerido' }, null);
+    }
+
     let fields = [];
     let values = [];
 

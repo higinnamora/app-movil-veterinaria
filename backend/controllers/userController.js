@@ -124,7 +124,16 @@ module.exports = {
     },
 
     getUserUpdate(req, res) {
-        const user = req.body;
+        const id = req.params.id;
+
+        if (!id) {
+            return res.status(400).json({
+                success: false,
+                message: "ID de usuario es requerido para actualizar",
+            });
+        }
+
+        const user = { ...req.body, id };
         User.update(user, (err, data) => {
             if (err) {
                 return res.status(501).json({
